@@ -47,3 +47,10 @@ const resumePlayerOnLastPlayed = () => {
 };
 
 resumePlayerOnLastPlayed();
+
+player.on("ended", function(data) {
+localStorage.removeItem("videoplayer-current-time");
+document.location.reload()
+});
+
+
