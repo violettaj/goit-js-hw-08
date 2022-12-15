@@ -1,7 +1,6 @@
 import throttle from "lodash.throttle";
 const form = document.querySelector(".feedback-form");
-const btn = document.querySelectorAll("button")
-
+const btn = document.querySelector("button");
 const data = {};
 const inputHandler = event => {
   const {
@@ -34,7 +33,7 @@ const submitHandler = event => {
     elements: { email, message },
   } = event.currentTarget;
   if(email.value === "" && message.value === "") {
-    btn.removeAttribute("disabled", "");
+    return false;
   }
   if (email.value === "" || message.value === "") {
     return alert("Please fill in the missing gaps");
