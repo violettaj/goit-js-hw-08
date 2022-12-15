@@ -1,35 +1,19 @@
-
-
-const iframe = document.querySelector("iframe#vimeo-player");
+const iframe = document.querySelector('iframe#vimeo-player');
 const player = new Vimeo.Player(iframe);
 
-player.on("play", () => {
-  console.log("played the video!");
-});
-
-player.getVideoTitle().then((title) => {
-  console.log("title:", title);
-});
-
-
-
-const saveTime= ({
-  duration,
-  percent,
-  seconds,
-}) => {
-  console.log(seconds)
-  localStorage.setItem("videoplayer-current-time", seconds);
+const saveTime = ({ duration, percent, seconds }) => {
+  localStorage.setItem('videoplayer-current-time', seconds);
+  if (seconds === duration) {
+    localStorage.setItem('videoplayer-current-time', 0);
+  }
 };
 
-player.on("timeupdate", _.throttle(saveTime, 1000));
-
-
+player.on('timeupdate', _.throttle(saveTime, 1000));
 
 const getLocalLastPlayedTime = () => {
   const defaultTime = 0;
   try {
-    const locallySavedTime = localStorage.getItem("videoplayer-current-time");
+    const locallySavedTime = localStorage.getItem('videoplayer-current-time');
     if (!locallySavedTime) return defaultTime;
 
     const parsedTime = JSON.parse(locallySavedTime);
@@ -43,14 +27,6 @@ const getLocalLastPlayedTime = () => {
 const resumePlayerOnLastPlayed = () => {
   const lastPlayedTime = getLocalLastPlayedTime();
   player.setCurrentTime(lastPlayedTime);
-  
 };
 
 resumePlayerOnLastPlayed();
-
-player.on("ended", function(data) {
-localStorage.removeItem("videoplayer-current-time");
-document.location.reload()
-});
-
-
