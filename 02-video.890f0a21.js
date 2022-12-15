@@ -1,0 +1,2 @@
+!function(){var e=document.querySelector("iframe#vimeo-player"),r=new Vimeo.Player(e);r.on("timeupdate",_.throttle((function(e){var r=e.duration,t=(e.percent,e.seconds);localStorage.setItem("videoplayer-current-time",t),t===r&&localStorage.setItem("videoplayer-current-time",0)}),1e3));var t;t=function(){try{var e=localStorage.getItem("videoplayer-current-time");if(!e)return 0;var r=JSON.parse(e);return Number(r)}catch(e){return console.log({error:e}),0}}(),r.setCurrentTime(t)}();
+//# sourceMappingURL=02-video.890f0a21.js.map
